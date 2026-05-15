@@ -50,6 +50,18 @@ void setup_curl(CURL* curl, const landing::ApiEndpoint& endpoint, const json& co
 }
 
 
+void paste_endpoint_parameter(std::string& api_endpoint, const landing::Parameter* param) {
+    std::string key = "{" + (*param).key + "}";
+    std::size_t pos = api_endpoint.find(key);
+
+    if (pos == std::string::npos) {
+        throw std::runtime_error(std::string("The api endpoint '" + api_endpoint + "'" + "does not contain the parameter key: '" + key + "'"));
+    }
+
+    api_endpoint.replace(pos, key.length(), (*param).value);
+}
+
+
 
 }
 
@@ -107,5 +119,36 @@ std::string request(CURL* curl, const landing::ApiEndpoint& endpoint) {
 
     return response;
 }
+
+
+// =============================================================================
+// Request
+// =============================================================================
+
+Request::Request(landing::ApiEndpoint endpoint)
+    : endpoint(endpoint) {
+    config = landing::json_from_file("config/requests.json")[endpoint.provider];
+    url = create_url();
+}
+
+
+std::string Request::create_url() {
+    std::string base_url = config["base_url"].get<std::string>();
+    std::string api_endpoint = config["endpoints"][endpoint.endpoint]["path"].get<std::string>();
+
+    if (endpoint.parameter != nullptr) {
+        paste_endpoint_parameter(api_endpoint, endpoint.parameter);
+    }
+
+    return base_url + api_endpoint;
+}
+
+
+std::string Request::get_url() {
+    return url;
+}
+
+
+
 
 }

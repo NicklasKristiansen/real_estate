@@ -14,14 +14,16 @@ using json = nlohmann::json;
 
 int main() {
     curl_global_init(CURL_GLOBAL_DEFAULT);
-    CURL* curl = curl_easy_init();
 
 
-    landing::ApiEndpoint endpoint = {"boliga", "sales_history"};
+    landing::Parameter param{"id", "1541123521"};
+    landing::Parameter* param_ptr = &param;
 
-    std::string response = landing::request(curl, endpoint);
+    landing::ApiEndpoint endpoint{"boliga", "one_url", param_ptr};
 
-    std::cout << response << '\n';
+    landing::Request request(endpoint);
+
+    std::cout << request.get_url() << "\n";
 
     return 0;
 }
