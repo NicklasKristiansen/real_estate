@@ -1,0 +1,12 @@
+vcpkg_installed/
+cmake-build-*/
+build/
+
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+
+*.out
+*.exe
+.deps/

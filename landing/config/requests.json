@@ -1,0 +1,45 @@
+{
+    "boliga": {
+        "base_url": "https://api.boliga.dk/api/v2",
+        "impersonate": "chrome116",
+        "rate_limit_ms": 500,
+        "default_headers": [
+            "Accept: application/json, text/plain, /",
+            "Accept-Language: en-US,en;q=0.9",
+            "Origin: https://www.boliga.dk",
+            "Referer: https://www.boliga.dk/"
+        ],
+        "endpoints": {
+            "one_url": {
+                "path": "/oneurl/{id}",
+                "method": "GET"
+            },
+            "sales_history": {
+                "path": "/sold/search/results",
+                "method": "GET",
+                "params": {
+                    "searchTab": 1,
+                    "pageSize": 500
+                },
+                "pagination": {
+                    "param": "page",
+                    "start": 1,
+                    "stop": "totalPages"
+                }
+            },
+            "listings": {
+                "path": "/search/results",
+                "params": {
+                    "searchTab": 1,
+                    "pageSize": 500
+                },
+                "pagination": {
+                    "param": "page",
+                    "start": 1,
+                    "stop": "totalPages"
+                }
+            }
+
+        }
+    }
+}
