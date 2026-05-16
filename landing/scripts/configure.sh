@@ -6,4 +6,5 @@ cd "$PROJECT_ROOT"
 
 cmake -S . -B build -G Ninja \
   -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
-  -DCURL_IMPERSONATE_ROOT="$PROJECT_ROOT/.deps/curl-impersonate"
+  -DCURL_IMPERSONATE_ROOT="$PROJECT_ROOT/.deps/curl-impersonate" \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
