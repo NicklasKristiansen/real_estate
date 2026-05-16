@@ -1,3 +1,5 @@
+.vscode/
+
 vcpkg_installed/
 cmake-build-*/
 build/
